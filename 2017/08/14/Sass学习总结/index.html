@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <!-- head tag -->
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <title>404</title>
+  <link rel="stylesheet" href="/zcq-blog/css/style.css">
+</head>
+  <body>
+    <!-- Blog header: title, subtitle and menu -->
+    <header class="header">
+  <div class="blog-title">
+    <a href="/zcq-blog/" class="logo">404</a>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="https://github.com/xlwx" class="menu-item-link">Github</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h2 class="title">Sass 学习总结</h2>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2017-08-14</span>
+  </div>
+  <div class="post-content">
+    <h1 id="Sass-学习总结"><a href="#Sass-学习总结" class="headerlink" title="Sass 学习总结"></a>Sass 学习总结</h1><p>最近在尝试使用<a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>做一个自己的博客。Hexo的默认css预处理器是stylus(.styl)。 不过因为目前的工作project使用Sass，而自己又不太懂，因此学习了一下Sass的用法，并且在Hexo博客模版中也使用Sass。并没有很深入的学习，感觉了解这些基本内容足够用了，其他的（比如各种build-in函数）有需要再看<a href="http://sass-lang.com/guide" target="_blank" rel="external">文档</a>吧。</p>
+<h2 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h2><p>Variables start with <strong>$</strong> as prefix.  </p>
+<pre><code>$blue : #1875e7;　
+div {
+    color : $blue;
+}
+</code></pre><p>If the variable is part of a string, wrap it with <strong>#{}</strong></p>
+<pre><code>$side : left;
+.rounded {
+    border-#{$side}-radius: 5px;
+}
+</code></pre><h2 id="Mixins"><a href="#Mixins" class="headerlink" title="Mixins"></a>Mixins</h2><p>Mixin 相当于一个可重用的代码块，接受传入参数，也可以设置参数默认值。</p>
+<pre><code>@mixin square($size：12px, $color) {         // 使用@mixin定义代码块， default $size : 12px
+  width: $size;
+  height: $size;
+  background-color: $color;
+}
+
+.small-blue-square {
+  @include square(20px, rgb(0,0,255));  // 使用@include调用代码块
+}
+
+.big-red-square {
+  @include square(300px, rgb(255,0,0));
+}
+</code></pre><h2 id="Extend"><a href="#Extend" class="headerlink" title="Extend"></a>Extend</h2><p>Extend 翻译为继承，很像是不带参数的 Mixin。</p>
+<pre><code>.dialog-button {
+  box-sizing: border-box;
+  color: #ffffff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  padding: 12px 40px;
+  cursor: pointer;
+}
+
+.confirm {
+  @extend .dialog-button;
+  background-color: #87bae1;
+  float: left;
+}
+
+.cancel {
+  @extend .dialog-button;
+  background-color: #e4749e;
+  float: right;
+}
+</code></pre><h2 id="Nesting"><a href="#Nesting" class="headerlink" title="Nesting"></a>Nesting</h2><p>Sass 允许选择器嵌套，使文件结构更加贴合html结构，可以减少 css 冲突。</p>
+<pre><code>ul {
+  list-style: none;
+  li {
+    padding: 15px;
+    display: inline-block;
+    a {
+      text-decoration: none;
+      font-size: 16px;
+      color: #444;
+    }
+  }
+}
+</code></pre><h2 id="Operation"><a href="#Operation" class="headerlink" title="Operation"></a>Operation</h2><p>Sass 可以做简单算术。+， -， *， ／， %</p>
+<pre><code>$width: 800px;
+
+.container { 
+  width: $width;
+}
+
+.column-half {
+  width: $width / 2;
+}
+
+.column-fifth {
+  width: $width / 5;
+}
+</code></pre><h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><p>Sass 有很多 <a href="http://sass-lang.com/documentation/Sass/Script/Functions.html" target="_blank" rel="external">build-in 函数</a>。比较常用的是一些颜色处理函数。</p>
+<h2 id="Partial"><a href="#Partial" class="headerlink" title="Partial"></a>Partial</h2><p>创建 partial file 使得Sass文件模块化，便于维护。以下划线开头的文件(_partial.scss)不会被编译进css文件，而是通过 <strong>@import</strong> 引入。</p>
+<pre><code>@import “／css／partial／test.scss”;
+</code></pre><h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><pre><code>p {
+  @if 1 + 1 == 2 { border: 1px solid; }
+  @if 5 &lt; 3 { border: 2px dotted; }
+}
+</code></pre><h2 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h2><pre><code>@function double($n) {
+  @return $n * 2;
+}
+ #sidebar {
+　　width: double(5px);
+}
+</code></pre><h2 id="引用父元素"><a href="#引用父元素" class="headerlink" title="引用父元素"></a>引用父元素</h2><p>在嵌套的代码块内，可以使用 <strong>&amp;</strong> 引用父元素：</p>
+<pre><code>a {
+  &amp;:hover { color: #ffb3ff; }
+}
+</code></pre><blockquote>
+<p>参考：</p>
+<pre><code>- [SASS用法指南](http://www.ruanyifeng.com/blog/2012/06/sass.html)
+- [Sass Basics](http://sass-lang.com/guide)
+- [Learn Sass In 15 Minutes](https://tutorialzine.com/2016/01/learn-sass-in-15-minutes)
+</code></pre></blockquote>
+
+  </div>
+</article>
+    </main>
+    <!-- Blog footer -->
+    <footer class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>Adapted to Hexo by <a href="http://www.codeblocq.com/">klugjo</a>.</p>
+    <p><a href="#">Back to top</a></p>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="/zcq-blog/js/gameOfLife.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"><script>
+  </body>
+</html>
