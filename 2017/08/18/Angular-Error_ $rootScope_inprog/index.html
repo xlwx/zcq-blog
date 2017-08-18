@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <!-- head tag -->
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <title>404</title>
+  <link rel="stylesheet" href="/zcq-blog/css/style.css">
+</head>
+  <body>
+    <!-- Blog header: title, subtitle and menu -->
+    <header class="header">
+  <div class="blog-title">
+    <a href="/zcq-blog/" class="logo">404</a>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="https://github.com/xlwx" class="menu-item-link">Github</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h2 class="title">Angular apply 踩坑</h2>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2017-08-18</span>
+  </div>
+  <div class="post-content">
+    <h2 id="Angular-apply-踩坑：Error-rootScope-inprog"><a href="#Angular-apply-踩坑：Error-rootScope-inprog" class="headerlink" title="Angular $apply() 踩坑：Error: $rootScope:inprog"></a>Angular $apply() 踩坑：<code>Error: $rootScope:inprog</code></h2><p>很多时候我们更新了scope中的数据，却发现浏览器显示并没有更新。这个时候，如果我们不小心拖拉改变了浏览器的size，或是打开了chrome console调试，页面才会变化，刚刚更新在scope中的数据才显示出来。</p>
+<p>为什么会这样？这就要说说angular的数据检查机制。当程序运行时，angularJS 通过 dirty-checking digest 机制来监测和更新scope中的值的变化。degist的完成了两件事，一是检查angularjs自己本身正在监测的值，通过和前一刻的状态对比来确定需不需要更新数据；二是运行那些自定义的watch handlers。</p>
+<p>digest机制，顾名思义，就是“消化”掉更新的数据，它通过调用scope对象的$digest来完成。通常情况下我们不需要手动调用$digest，那些可能触发scope中的值的改变的事件，比方说 鼠标移动，timeout，或是服务器响应的代码都被angularJS封装的起来，在代码执行完毕后自动调用 $digest。而如果我们想强制执行 digest过程，就需要用到angularjs提供的$apply方法。</p>
+<pre><code>element.on(&apos;mouseup&apos;, function() {
+  scope.$apply(function() {
+    $scope.doStuff();
+  });
+});
+</code></pre><p>$apply 相当于：</p>
+<pre><code>$apply = function(fn) {
+  try {
+    fn();
+  } finally() {
+    $digest();
+  }
+}
+</code></pre><p>angularjs会自动监测目前程序运行正处于哪个状态通常情况下。而angularjs规定任何情况下只能有一个 $scope 或是 $apply 正在运行。这样做是为了避免出错以后调试困难。因此，自定义的$apply 与程序正在执行的出现了冲突，就有了标题所示的错误。</p>
+<p><strong>解决方法</strong> ：</p>
+<p>把你的程序包裹在 angularjs “官方指定代码块中”，这样便会在程序运行完成时自动调用 $digest.</p>
+<pre><code>$timeout(function(
+    // 你的代码
+),0);
+</code></pre>
+  </div>
+</article>
+    </main>
+    <!-- Blog footer -->
+    <footer class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>Adapted to Hexo by <a href="http://www.codeblocq.com/">klugjo</a>.</p>
+    <p><a href="#">Back to top</a></p>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="/zcq-blog/js/gameOfLife.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"><script>
+  </body>
+</html>

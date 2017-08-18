@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <!-- head tag -->
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <title>404</title>
+  <link rel="stylesheet" href="/zcq-blog/css/style.css">
+</head>
+  <body>
+    <!-- Blog header: title, subtitle and menu -->
+    <header class="header">
+  <div class="blog-title">
+    <a href="/zcq-blog/" class="logo">404</a>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="https://github.com/xlwx" class="menu-item-link">Github</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h2 class="title">HTML 拾遗</h2>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2017-08-16</span>
+  </div>
+  <div class="post-content">
+    <h1 id="HTML-拾遗"><a href="#HTML-拾遗" class="headerlink" title="HTML 拾遗"></a>HTML 拾遗</h1><p>作为一个前端工程师，自己的 css 和 html 技能是在是很捉急，都是实习的时候缺哪补哪，东拼西凑出来的。这篇文章总结一下 html 中被自己忽略的地方。</p>
+<h2 id="Tag-a-的使用"><a href="#Tag-a-的使用" class="headerlink" title="Tag a 的使用"></a>Tag a 的使用</h2><ul>
+<li>超链接跳转</li>
+</ul>
+<p>这是 tag a 最简单的用法。target=”_blank”指定打开新页面并跳转。</p>
+<pre><code>&lt;a href=&quot;xxx&quot; target=&quot;_blank&quot;&gt;jump&lt;/a&gt;
+</code></pre><ul>
+<li>页面内跳转</li>
+</ul>
+<p>通过标签 id 跳转。</p>
+<pre><code>&lt;div id=&quot;top&quot;&gt;Top&lt;/div&gt;
+&lt;a href=&quot;#top&quot;&gt;Go to top&lt;/a&gt;
+</code></pre><ol>
+<li>发送邮件</li>
+</ol>
+<p>格式有点类似带参数的url。Mailto必须有，其他参数可选。</p>
+<pre><code>&lt;a href=&quot;Mailto:1234567@163.comCC=ghsau@163.com&amp;BCC=ghsau@163.com&amp;Subject=Hello&amp;Body=你好&quot;&gt;
+    给我发邮件&lt;/a&gt;  
+</code></pre><h2 id="DOCTYPE决定浏览器渲染模式"><a href="#DOCTYPE决定浏览器渲染模式" class="headerlink" title="DOCTYPE决定浏览器渲染模式"></a>DOCTYPE决定浏览器渲染模式</h2><p>HTML5提供的 <code>&lt;!DOCTYPE HTML&gt;</code> 是标准模式, 记得在最开头声明。</p>
+<h2 id="Repaint-和-Reflow"><a href="#Repaint-和-Reflow" class="headerlink" title="Repaint 和 Reflow"></a>Repaint 和 Reflow</h2><p>我工作时犯过的错误：</p>
+<ol>
+<li>绝对不要使用table</li>
+<li>避免在 css 中使用运算式 （sass是编译后生成css，因此可以使用运算式）</li>
+<li>Avoid setting multiple inline styles：使用常用的class的方式进行设置样式，以避免设置样式时访问DOM的低效率</li>
+<li>不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className</li>
+<li><p>使用cloneNode在外部更新节点然后再通过replace与原始节点互换。</p>
+<pre><code>var orig = document.getElementById(&apos;container&apos;);
+var clone = orig.cloneNode(true);
+var list = [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;];
+var content;
+for (var i = 0; i &lt; list.length; i++) {
+   content = document.createTextNode(list[i]);
+   clone.appendChild(content);
+}
+orig.parentNode.replaceChild(clone, orig);
+</code></pre></li>
+</ol>
+<p><a href="https://github.com/kangkk/web_performance_optimization/blob/master/chapters/HTML%E5%92%8CDOM%E4%BC%98%E5%8C%96.md" target="_blank" rel="external">详细介绍</a></p>
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><p>HTML5 提供了两种绘图方式：</p>
+<ol>
+<li><code>&lt;canvas&gt;</code> : 通过 javascript 动态绘图，不支持事件处理，适合图像密集型游戏。</li>
+<li><code>&lt;svg&gt;</code>: 绘制矢量图，依赖分辨率。</li>
+</ol>
+<h2 id="inline-和-block-的区别"><a href="#inline-和-block-的区别" class="headerlink" title="inline 和 block 的区别"></a>inline 和 block 的区别</h2><p>block会新起一行，适用于大块的元素，可以包含inline元素 例如 <code>&lt;div&gt;</code>,<code>&lt;p&gt;</code>,<code>&lt;h1&gt;</code>。inline不会新起一行，而是依照现有的布局，紧密依次排列，只关心元素的宽度,例如<code>&lt;span&gt;</code>。inline元素可以包含其他inline元素，不能包含block元素。</p>
+
+  </div>
+</article>
+    </main>
+    <!-- Blog footer -->
+    <footer class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>Adapted to Hexo by <a href="http://www.codeblocq.com/">klugjo</a>.</p>
+    <p><a href="#">Back to top</a></p>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="/zcq-blog/js/gameOfLife.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"><script>
+  </body>
+</html>

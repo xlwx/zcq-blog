@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <!-- head tag -->
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <title>404</title>
+  <link rel="stylesheet" href="/zcq-blog/css/style.css">
+</head>
+  <body>
+    <!-- Blog header: title, subtitle and menu -->
+    <header class="header">
+  <div class="blog-title">
+    <a href="/zcq-blog/" class="logo">404</a>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/" class="menu-item-link">Home</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/zcq-blog/archives" class="menu-item-link">Archives</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="https://github.com/xlwx" class="menu-item-link">Github</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+    <main class="main">
+      <article class="post">
+  <div class="post-title">
+    <h2 class="title">CSS定位方式总结</h2>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2017-08-16</span>
+  </div>
+  <div class="post-content">
+    <h1 id="CSS-定位方式总结"><a href="#CSS-定位方式总结" class="headerlink" title="CSS 定位方式总结"></a>CSS 定位方式总结</h1><blockquote>
+<p><a href="https://css-tricks.com/absolute-relative-fixed-positioining-how-do-they-differ/" target="_blank" rel="external">Absolute, Relative, Fixed Positioning: How Do They Differ?</a></p>
+<p><a href="http://www.barelyfitz.com/screencast/html-training/css/positioning/" target="_blank" rel="external">Learn CSS Positioning in Ten Steps</a></p>
+</blockquote>
+<p>CSS 中有四种定位方式， 分别是: static, relative, absolute 和 fixed。要理解这四种定位方式，首先要明确一个概念，就是所有的元素都可以看成是一个方块(CSS box model)。</p>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>static是默认定位方式，不同的元素有不同的默认值。是最基本的定位方式，即元素按照它该有的样子出现在页面的某个位置。</p>
+<h2 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h2><p>relative是最容易混淆的。它真正的意思是“relative to itself”。如果只是对一个元素设置<code>position: relative;</code>而没有设置具体的偏移量(top, left, bottom, right)， 那么元素的定位仍然相当于 static。如果给元素一个偏移量，比方说 <code>top: 10px</code>,那么元素就会在 static 的常规位置基础上向下便宜10px。关于relative还有两个很重要的用法：</p>
+<ol>
+<li>可以在 relative 的基础上设置 <code>z-index</code>，来定义元素显示的层序(谁覆盖在谁上面)</li>
+<li>relative配合absolute使用可以限制absolute的作用范围。 relative元素的子元素如果定位方式为absolute，那么子元素可以在relative元素中任意定位。<a href="https://css-tricks.com/absolute-positioning-inside-relative-positioning/" target="_blank" rel="external">例子</a>。这点非常有用！</li>
+</ol>
+<h2 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h2><p>这就非常简单啦。如果没有一个relative的父元素，以absolute定位的元素在页面中的位置是固定不变的，即不会影响别的元素，也不会被别的元素影响，会被移除出元素树单独渲染。合理使用absolute会减少页面的reflow。</p>
+<h2 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h2><p>这种定位方式是 relative to viewpoint。即元素会固定在浏览器视窗的某个位置，不会随着 scroll down而改变位置。</p>
+
+  </div>
+</article>
+    </main>
+    <!-- Blog footer -->
+    <footer class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>Adapted to Hexo by <a href="http://www.codeblocq.com/">klugjo</a>.</p>
+    <p><a href="#">Back to top</a></p>
+</footer>
+    <!-- After footer scripts -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="/zcq-blog/js/gameOfLife.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"><script>
+  </body>
+</html>
